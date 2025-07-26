@@ -35,7 +35,7 @@ jobs:
       - name: Build
         run: ./build.sh
 
-      # Step 5: Pack the project
+       # Step 5: Pack the project
       - name: Pack
         run: dotnet pack src/EFCore.SharePoint/EFCore.SharePoint.csproj --configuration Release -o ./packages
 
