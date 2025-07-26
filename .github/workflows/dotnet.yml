@@ -34,4 +34,4 @@ jobs:
 
       # Step 6: Publish package to GitHub Packages
       - name: Publish to GitHub Packages
-        run: dotnet nuget push ./packages/*.nupkg --api-key ${{ secrets.FOR_NUGETPACKAGE }} --source "https://nuget.pkg.github.com/YAS-SIIN/index.json" --skip-duplicate
+        run: dotnet nuget push ./packages/*.nupkg --api-key ${{ secrets.FOR_NUGETPACKAGE }} --source "https://nuget.pkg.github.com/YAS-SIIN/EFCore.SharePoint" --skip-duplicate
