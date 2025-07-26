@@ -18,7 +18,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '10.0' # Adjust based on your project
+          dotnet-version: '10.0'
 
       # Step 3: Restore dependencies
       - name: Restore dependencies
@@ -28,19 +28,10 @@ jobs:
       - name: Build
         run: ./build.sh
 
-       # Step 5: Pack the project
+      # Step 5: Pack the project
       - name: Pack
         run: dotnet pack src/EFCore.SharePoint/EFCore.SharePoint.csproj --configuration Release -o ./packages
 
-      # Step 6a: Add GitHub Packages as a NuGet source
-      - name: Add GitHub Packages source
-        run: dotnet nuget add source --name github "https://nuget.pkg.github.com/      YAS-SIIN/index.json"
-      
-      # Step 6b: Set API Key for the source
-      - name: Set API Key for GitHub source
-        run: dotnet nuget setapikey ${{ secrets.FOR_NUGETPACKAGE }} --source github
-      
-      # Step 6c: Publish package to GitHub Packages
+      # Step 6: Publish package to GitHub Packages
       - name: Publish to GitHub Packages
-        run: dotnet nuget push ./packages/*.nupkg --source github --skip-duplicate
-      
+        run: dotnet nuget push ./packages/*.nupkg --api-key ${{ secrets.FOR_NUGETPACKAGE }} --source "https://nuget.pkg.github.com/YAS-SIIN/index.json" --skip-duplicate
