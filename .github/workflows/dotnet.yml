@@ -22,7 +22,10 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: |
+            8.0.x
+            10.0.100-preview.7.25322.101
+          dotnet-quality: 'preview'
           source-url: https://nuget.pkg.github.com/YAS-SIIN/index.json
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -35,7 +38,7 @@ jobs:
       - name: Build
         run: ./build.sh
 
-       # Step 5: Pack the project
+      # Step 5: Pack the project
       - name: Pack
         run: dotnet pack src/EFCore.SharePoint/EFCore.SharePoint.csproj --configuration Release -o ./packages
 
