@@ -26,9 +26,6 @@ jobs:
             8.0.x
             10.0.100-preview.7.25322.101
           dotnet-quality: 'preview'
-          source-url: https://nuget.pkg.github.com/YAS-SIIN/index.json
-        env:
-          NUGET_AUTH_TOKEN: ${{ secrets.FOR_NUGETPACKAGE }}
 
       # Step 3: Restore dependencies
       - name: Restore dependencies
@@ -44,6 +41,8 @@ jobs:
 
       # Step 6: Publish package to GitHub Packages
       - name: Publish to GitHub Packages
-        run: dotnet nuget push ./packages/*.nupkg --skip-duplicate
-        env:
-          NUGET_AUTH_TOKEN: ${{ secrets.FOR_NUGETPACKAGE }}
+        run: dotnet nuget push ./packages/*.nupkg --api-key ${{ secrets.FOR_NUGETPACKAGE }} --source https://nuget.pkg.github.com/YAS-SIIN/index.json --skip-duplicate
+
+      # Step 7: Publish package to NuGet.org
+      - name: Publish to NuGet.org
+        run: dotnet nuget push ./packages/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
